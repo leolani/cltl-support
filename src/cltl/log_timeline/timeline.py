@@ -5,6 +5,7 @@ import pandas as pd
 import plotly.express as px
 
 from cltl.log_timeline.api import to_datetime
+from cltl.log_timeline.mic_parser import MicLogParser
 from cltl.log_timeline.topicworker_parser import TopicWorkerLogParser
 from cltl.log_timeline.vad_parser import VadLogParser
 from cltl.log_timeline.whisper_parser import WhisperLogParser
@@ -44,22 +45,23 @@ if __name__ == '__main__':
                         help="Services to include")
     args, _ = parser.parse_known_args()
 
-    services = set(args.service) if 'services' in args else {}
-    services = {'AsrService',
-                # 'BDIService',
-                # 'BackendService_scenario',
-                'BackendService_tts',
-                # 'ChatUiService',
-                # 'ContextService',
-                # 'EmissorDataService',
-                # 'SpotDialogService',
-                # 'SpotGameService',
-                'VadService',
-                'Whisper',
-                'VAD',
-                }
+    services = set(args.service) if args.service is not None else {}
+    # services = {'AsrService',
+    #             # 'BDIService',
+    #             # 'BackendService_scenario',
+    #             'BackendService_tts',
+    #             # 'ChatUiService',
+    #             # 'ContextService',
+    #             # 'EmissorDataService',
+    #             # 'SpotDialogService',
+    #             # 'SpotGameService',
+    #             'VadService',
+    #             'Whisper',
+    #             'VAD',
+    #             'MIC_MUTE',
+    #             }
 
     # TODO move dt to plot_events
-    parsers = [TopicWorkerLogParser(args.dt), WhisperLogParser(args.dt), VadLogParser()]
+    parsers = [TopicWorkerLogParser(args.dt), WhisperLogParser(args.dt), VadLogParser(), MicLogParser()]
     events = {k: v for parser in parsers for k, v in parse_log(parser, args.log).items()}
     plot_events(events)
