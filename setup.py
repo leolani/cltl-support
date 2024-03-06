@@ -23,10 +23,4 @@ setup(
     long_description_content_type="text/markdown",
     python_requires='>=3.9',
     install_requires=['cltl.combot'],
-    extras_require={
-        "log": [
-            "numpy",
-            "pandas",
-            "plotly"
-        ]}
 )
