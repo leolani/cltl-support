@@ -9,26 +9,24 @@ with open("VERSION", "r") as fh:
 
 
 setup(
-    name='cltl.template',
+    name='cltl.support',
     version=version,
     package_dir={'': 'src'},
-    packages=find_namespace_packages(include=['cltl.*', 'cltl_service.*'], where='src'),
+    packages=find_namespace_packages(include=['cltl.*'], where='src'),
     data_files=[('VERSION', ['VERSION'])],
-    url="https://github.com/leolani/cltl-template",
+    url="https://github.com/leolani/cltl-support",
     license='MIT License',
     author='CLTL',
     author_email='t.baier@vu.nl',
-    description='Template component for Leolani',
+    description='Utilities related to the Leolani application',
     long_description=long_description,
     long_description_content_type="text/markdown",
-    python_requires='>=3.8',
+    python_requires='>=3.9',
     install_requires=['cltl.combot'],
     extras_require={
-        "impl": [
-            "numpy"
-        ],
-        "service": [
-            "emissor",
-            "flask"
+        "log": [
+            "numpy",
+            "pandas",
+            "plotly"
         ]}
 )
